@@ -121,4 +121,58 @@ describe JustShogi::Keima do
       refute_includes(result, back_right)
     end
   end
+
+  describe '#has_legal_moves_from_y' do
+    describe 'when player 1' do
+      describe 'when greater than 1' do
+        it 'must return true' do
+          keima = JustShogi::Keima.new(id: 1, player_number: 1)
+          result = keima.has_legal_moves_from_y(2)
+          assert result
+        end
+      end
+
+      describe 'when 1' do
+        it 'must return false' do
+          keima = JustShogi::Keima.new(id: 1, player_number: 1)
+          result = keima.has_legal_moves_from_y(1)
+          refute result
+        end
+      end
+
+      describe 'when less than 1' do
+        it 'must return false' do
+          keima = JustShogi::Keima.new(id: 1, player_number: 1)
+          result = keima.has_legal_moves_from_y(0)
+          refute result
+        end
+      end
+    end
+
+    describe 'when player 2' do
+      describe 'when greater than 7' do
+        it 'must return false' do
+          keima = JustShogi::Keima.new(id: 1, player_number: 2)
+          result = keima.has_legal_moves_from_y(8)
+          refute result
+        end
+      end
+
+      describe 'when 7' do
+        it 'must return false' do
+          keima = JustShogi::Keima.new(id: 1, player_number: 2)
+          result = keima.has_legal_moves_from_y(7)
+          refute result
+        end
+      end
+
+      describe 'when less than 7' do
+        it 'must return true' do
+          keima = JustShogi::Keima.new(id: 1, player_number: 2)
+          result = keima.has_legal_moves_from_y(6)
+          assert result
+        end
+      end
+    end
+  end
 end

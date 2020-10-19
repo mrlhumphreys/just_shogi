@@ -6,6 +6,7 @@ require 'just_shogi/errors/moved_into_check_error'
 require 'just_shogi/errors/invalid_promotion_error'
 require 'just_shogi/errors/piece_not_found_error'
 require 'just_shogi/errors/square_occupied_error'
+require 'just_shogi/errors/no_legal_moves_error'
 require 'just_shogi/errors/dropped_into_check_error'
 require 'just_shogi/square_set'
 require 'just_shogi/hand'
@@ -228,6 +229,9 @@ module JustShogi
         @errors.push JustShogi::OffBoardError.new
       elsif square.occupied?
         @errors.push JustShogi::SquareOccupiedError.new
+      elsif !piece.has_legal_moves_from_y(square.y)
+        @errors.push JustShogi::NoLegalMovesError.new
+        # TODO: puts two fuhyou on files
       else
         duplicate = self.clone
         duplicate.perform_complete_drop(player_number, piece_id, square_id)

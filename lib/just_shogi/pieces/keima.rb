@@ -19,5 +19,13 @@ module JustShogi
     def destinations(square, game_state)
       game_state.squares.in_direction(square, forwards_direction).ranks_away(square, 2).files_away(square, 1).unoccupied_or_occupied_by_opponent(player_number)
     end
+
+    def has_legal_moves_from_y(y)
+      if player_number == 1
+        y > 1
+      else
+        y < 7
+      end
+    end
   end
 end

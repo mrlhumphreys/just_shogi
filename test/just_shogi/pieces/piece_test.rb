@@ -20,5 +20,11 @@ describe JustShogi::Piece do
     end
   end
 
-
+  describe 'has_legal_moves_from_y' do
+    it 'must return true' do
+      piece = JustShogi::Piece.new(id: 1, player_number: 2)
+      result = piece.has_legal_moves_from_y(1) 
+      assert result
+    end
+  end
 end

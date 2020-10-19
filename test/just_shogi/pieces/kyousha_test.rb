@@ -70,4 +70,46 @@ describe JustShogi::Kyousha do
       refute_includes(result, side)
     end
   end
+
+  describe 'has_legal_moves_from_y' do
+    describe 'when player 1' do
+      describe 'when y is 0' do
+        it 'must return false' do
+          kyousha = JustShogi::Kyousha.new(id: 1, player_number: 1)
+          result = kyousha.has_legal_moves_from_y(0)
+
+          refute result 
+        end
+      end
+
+      describe 'when y is not 0' do
+        it 'must return true' do
+          kyousha = JustShogi::Kyousha.new(id: 1, player_number: 1)
+          result = kyousha.has_legal_moves_from_y(1)
+
+          assert result 
+        end
+      end
+    end
+
+    describe 'when player 2' do
+      describe 'when y is 8' do
+        it 'must return false' do
+          kyousha = JustShogi::Kyousha.new(id: 1, player_number: 2)
+          result = kyousha.has_legal_moves_from_y(8)
+
+          refute result 
+        end
+      end
+
+      describe 'when y is not 8' do
+        it 'must return true' do
+          kyousha = JustShogi::Kyousha.new(id: 1, player_number: 2)
+          result = kyousha.has_legal_moves_from_y(7)
+
+          assert result 
+        end
+      end
+    end
+  end
 end

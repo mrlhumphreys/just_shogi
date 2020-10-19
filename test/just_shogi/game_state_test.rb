@@ -655,6 +655,46 @@ describe JustShogi::GameState do
       end
     end
 
+    describe 'when drop prevents legal move' do
+      it 'does not change board state' do
+        game_state = JustShogi::GameState.new(
+          current_player_number: 1,
+          squares: [
+            { id: '91', x: 0, y: 0, piece: { id: 1, player_number: 2, type: 'oushou' } },
+            { id: '81', x: 1, y: 0, piece: { id: 2, player_number: 2, type: 'hisha' } },
+            { id: '71', x: 2, y: 0, piece: nil },
+            { id: '61', x: 3, y: 0, piece: { id: 4, player_number: 1, type: 'gyokushou' } },
+
+            { id: '62', x: 3, y: 1, piece: nil }
+          ],
+          hands: [
+            { player_number: 1, pieces: [ { id: 5, player_number: 1, type: 'fuhyou' } ] },
+            { player_number: 2, pieces: [] }
+          ]
+        )
+        player_number = 1
+        piece_id = 5
+        square_id = '71'
+
+        result = game_state.drop(player_number, piece_id, square_id)
+
+        hand = game_state.hands.find { |h| h.player_number == player_number }
+        square = game_state.squares.find_by_id(square_id)
+
+        refute result
+        refute game_state.errors.empty?
+        assert_equal 1, hand.pieces.size
+        assert_nil square.piece
+        assert_equal 1, game_state.current_player_number
+      end
+    end
+
+    describe 'when drop puts 2 fuhyou in file' do
+      it 'does not change board state' do
+
+      end
+    end
+
     describe 'when drop leads to check' do
       it 'does not change the board state' do
         game_state = JustShogi::GameState.new(

@@ -7,7 +7,7 @@ module JustShogi
   # A square occupied error with a message
   class SquareOccupiedError < Error
 
-    # New invalid promotion errors can be instantiated with
+    # New square occupied errors can be instantiated with
     #
     # @option [String] message
     #   the message to display.

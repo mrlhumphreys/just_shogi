@@ -14,5 +14,9 @@ module JustShogi
     def switch_player
       @player_number = opponent
     end
+
+    def has_legal_moves_from_y(_)
+      true 
+    end
   end
 end

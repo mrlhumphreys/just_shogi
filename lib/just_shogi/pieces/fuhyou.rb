@@ -19,5 +19,13 @@ module JustShogi
     def destinations(square, game_state)
       game_state.squares.in_range(square, 1).in_direction(square, forwards_direction).orthogonal(square).unoccupied_or_occupied_by_opponent(player_number).unblocked(square, game_state.squares)
     end
+
+    def has_legal_moves_from_y(y)
+      if player_number == 1
+        y != 0
+      else
+        y != 8
+      end
+    end
   end
 end
